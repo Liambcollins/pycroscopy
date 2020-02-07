@@ -1,0 +1,531 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.io.translators.gwyddion &mdash; pycroscopy 0.60.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.io.translators.gwyddion</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.io.translators.gwyddion</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Fri Jun 01 15:21:46 2018</span>
+
+<span class="sd">@author: Daniel Streater, Suhas Somnath</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">remove</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+
+<span class="kn">from</span> <span class="nn">pyUSID.io.translator</span> <span class="kn">import</span> <span class="n">Translator</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.write_utils</span> <span class="kn">import</span> <span class="n">Dimension</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.hdf_utils</span> <span class="kn">import</span> <span class="n">create_indexed_group</span><span class="p">,</span> <span class="n">write_main_dataset</span><span class="p">,</span> <span class="n">write_simple_attrs</span><span class="p">,</span> <span class="n">write_ind_val_dsets</span>
+
+<span class="c1"># packages specific to this kind of file</span>
+<span class="kn">from</span> <span class="nn">.df_utils.gsf_read</span> <span class="kn">import</span> <span class="n">gsf_read</span>
+<span class="kn">import</span> <span class="nn">gwyfile</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">unicode</span> <span class="o">=</span> <span class="nb">str</span>
+
+
+<div class="viewcode-block" id="GwyddionTranslator"><a class="viewcode-back" href="../../../../_autosummary/pycroscopy.io.html#pycroscopy.io.translators.GwyddionTranslator">[docs]</a><span class="k">class</span> <span class="nc">GwyddionTranslator</span><span class="p">(</span><span class="n">Translator</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GwyddionTranslator.translate"><a class="viewcode-back" href="../../../../_autosummary/pycroscopy.io.html#pycroscopy.io.translators.GwyddionTranslator.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Two kinds of files:</span>
+        <span class="c1"># 1. Simple GSF files -&gt; use metadata, data = gsf_read(file_path)</span>
+        <span class="c1"># 2. Native .gwy files -&gt; use the gwyfile package</span>
+        <span class="c1"># I have a notebook that shows how such data can be read.</span>
+        <span class="c1"># Create the .h5 file from the input file</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">unicode</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;file_path should be a string!&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gsf&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gwy&#39;</span><span class="p">)):</span>
+            <span class="c1"># TODO: Gwyddion is weird, it doesn&#39;t append the file extension some times.</span>
+            <span class="c1"># In theory, you could identify the kind of file by looking at the header (line 38 in gsf_read()).</span>
+            <span class="c1"># Ideally the header check should be used instead of the extension check</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;file_path must have a .gsf or .gwy extension!&#39;</span><span class="p">)</span>
+        
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="n">folder_path</span><span class="p">,</span> <span class="n">base_name</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="n">base_name</span> <span class="o">=</span> <span class="n">base_name</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">h5_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">base_name</span> <span class="o">+</span> <span class="s1">&#39;.h5&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">h5_path</span><span class="p">):</span>
+            <span class="n">remove</span><span class="p">(</span><span class="n">h5_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setup the global parameters</span>
+<span class="sd">        ---------------------------</span>
+<span class="sd">        translator: Gywddion</span>
+<span class="sd">        data_type: depends on file type</span>
+<span class="sd">                    GwyddionGSF_&lt;gsf_meta[&#39;title&#39;]&gt;</span>
+<span class="sd">                    or</span>
+<span class="sd">                    GwyddionGWY_&lt;gwy_meta[&#39;title&#39;]&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;translator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Gwyddion&#39;</span>
+
+        <span class="c1"># Create the measurement group</span>
+        <span class="n">meas_grp</span> <span class="o">=</span> <span class="n">create_indexed_group</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_file</span><span class="p">,</span> <span class="s1">&#39;Measurement&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gsf&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_translate_gsf</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">meas_grp</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;gwy&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_translate_gwy</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">meas_grp</span><span class="p">)</span>
+        
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">h5_path</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_translate_gsf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">meas_grp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file_path</span>
+<span class="sd">        meas_grp</span>
+
+<span class="sd">        For more information on the .gsf file format visit the link below -</span>
+<span class="sd">        http://gwyddion.net/documentation/user-guide-en/gsf.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read the data in from the specified file</span>
+        <span class="n">gsf_meta</span><span class="p">,</span> <span class="n">gsf_values</span> <span class="o">=</span> <span class="n">gsf_read</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+        <span class="c1"># Write parameters where available specifically for sample_name</span>
+        <span class="c1"># data_type, comments and experiment_date to file-level parms</span>
+        <span class="c1"># Using pop, move some global parameters from gsf_meta to global_parms:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Gwyddion_GSF&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;experiment_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># overwrite some parameters at the file level:</span>
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">meas_grp</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">)</span>
+
+        <span class="c1"># Build the reference values for the ancillary position datasets:</span>
+        <span class="c1"># TODO: Remove information from parameters once it is used meaningfully where it needs to be.</span>
+        <span class="c1"># Here, it is no longer necessary to save XReal anymore so we will pop (remove) it from gsf_meta</span>
+        <span class="n">x_offset</span> <span class="o">=</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;XOffset&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">x_range</span> <span class="o">=</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;XReal&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="c1"># TODO: Use Numpy wherever possible instead of pure python</span>
+        <span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_range</span><span class="p">,</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;XRes&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">x_offset</span>
+
+        <span class="n">y_offset</span> <span class="o">=</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;YOffset&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">y_range</span> <span class="o">=</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;YReal&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">y_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_range</span><span class="p">,</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;YRes&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">y_offset</span>
+
+        <span class="c1"># Just define the ancillary position and spectral dimensions. Do not create datasets yet</span>
+        <span class="n">pos_desc</span> <span class="o">=</span> <span class="p">[</span><span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;XYUnits&#39;</span><span class="p">,</span> <span class="s1">&#39;arb. units&#39;</span><span class="p">),</span> <span class="n">x_vals</span><span class="p">),</span>
+                    <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;XYUnits&#39;</span><span class="p">,</span> <span class="s1">&#39;arb. units&#39;</span><span class="p">),</span> <span class="n">y_vals</span><span class="p">)]</span>
+
+        <span class="n">spec_desc</span> <span class="o">=</span> <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Intensity&#39;</span><span class="p">,</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ZUnits&#39;</span><span class="p">,</span> <span class="s1">&#39;arb. units&#39;</span><span class="p">),</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        You only need to prepare the dimensions for positions and spectroscopic. You do not need to write the </span>
+<span class="sd">        ancillary datasets at this point. write_main_dataset will take care of that. You only need to use </span>
+<span class="sd">        write_ind_val_datasets() for the cases where you may need to reuse the datasets. See the tutorial online.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Create the channel-level group</span>
+        <span class="n">chan_grp</span> <span class="o">=</span> <span class="n">create_indexed_group</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">chan_grp</span><span class="p">,</span> <span class="n">gsf_meta</span><span class="p">)</span>
+
+        <span class="c1"># Create the main dataset (and the</span>
+        <span class="n">two_dim_image</span> <span class="o">=</span> <span class="n">gsf_values</span>
+        <span class="n">write_main_dataset</span><span class="p">(</span><span class="n">chan_grp</span><span class="p">,</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">two_dim_image</span><span class="p">,</span>
+                           <span class="nb">len</span><span class="p">(</span><span class="n">pos_desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_desc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span>
+                           <span class="s1">&#39;Raw_Data&#39;</span><span class="p">,</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">),</span> <span class="n">gsf_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ZUnits&#39;</span><span class="p">,</span> <span class="s1">&#39;arb. units&#39;</span><span class="p">),</span>
+                           <span class="n">pos_desc</span><span class="p">,</span> <span class="n">spec_desc</span><span class="p">)</span>
+        <span class="c1"># TODO: When passing optional arguments, you are HIGHLY recommended to specify the variable name such as aux_pos_prefix=&#39;Position_&#39; instead of just &#39;Position_&#39; (which is how you pass regulard arguments)</span>
+
+
+    <span class="k">def</span> <span class="nf">_translate_gwy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">meas_grp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file_path</span>
+<span class="sd">        meas_grp</span>
+
+<span class="sd">        For more information on the .gwy file format visit the link below -</span>
+<span class="sd">        http://gwyddion.net/documentation/user-guide-en/gwyfile-format.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Need to build a set of channels to test against and a function-level variable to write to</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Read the data in from the specified file</span>
+        <span class="n">gwy_data</span> <span class="o">=</span> <span class="n">gwyfile</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">gwy_data</span><span class="p">:</span>
+            <span class="n">gwy_key</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># if the second index of the gwy_key can be cast into an int then</span>
+                <span class="c1"># it needs to be processed either as an image or a graph</span>
+                
+                <span class="nb">int</span><span class="p">(</span><span class="n">gwy_key</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                
+                <span class="k">if</span> <span class="n">gwy_key</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;graph&#39;</span><span class="p">:</span>
+                    <span class="c1"># graph processing</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;GwyddionGWY_&#39;</span> <span class="o">+</span> <span class="s1">&#39;Graph&#39;</span>
+                    <span class="n">channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translate_graph</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span>
+                                                        <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;GwyddionGWY_&#39;</span> <span class="o">+</span> <span class="s1">&#39;Image&#39;</span>
+                    <span class="n">channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translate_image_stack</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span>
+                                                            <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="c1"># if the second index of the gwy_key cannot be cast into an int</span>
+                <span class="c1"># then it needs to be processed wither as a spectra, volume or xyz</span>
+                
+                <span class="k">if</span> <span class="n">gwy_key</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;sps&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;GwyddionGWY_&#39;</span> <span class="o">+</span> <span class="s1">&#39;Spectra&#39;</span>
+                    <span class="n">channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translate_spectra</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span>
+                                                        <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">gwy_key</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;brick&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;GwyddionGWY_&#39;</span> <span class="o">+</span> <span class="s1">&#39;Volume&#39;</span>
+                    <span class="n">channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translate_volume</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span>
+                                                        <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">gwy_key</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;xyz&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;GwyddionGWY_&#39;</span> <span class="o">+</span> <span class="s1">&#39;XYZ&#39;</span>
+                    <span class="n">channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translate_xyz</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span>
+                                                    <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">meas_grp</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_parms</span><span class="p">)</span>
+
+        <span class="c1"># TODO: Use the Bruker translator as a reference. use the three functions below as necessary to keep the code clean and easy to read.</span>
+
+        <span class="c1"># Write parameters where available specifically for sample_name</span>
+        <span class="c1"># data_type, comments and experiment_date to file-level parms</span>
+
+        <span class="c1"># write parameters common across all channels to meas_grp</span>
+
+        <span class="c1"># Update existing file level parameters where appropriate</span>
+
+        <span class="c1"># Prepare the list of raw_data datasets</span>
+
+
+    <span class="k">def</span> <span class="nf">_translate_image_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use this function to write data corresponding to a stack of scan images (most common)</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">current_channel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="c1"># Iterate through each object in the gwy dataset</span>
+        <span class="n">gwy_key</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+        <span class="c1"># Test whether a new channel needs to be created</span>
+        <span class="c1"># The &#39;filename&#39; structure in the gwy file should not have a channel created hence the try/except block</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">gwy_key</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">channels</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">current_channel</span> <span class="o">=</span> <span class="n">create_indexed_group</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="s2">&quot;Channel&quot;</span><span class="p">)</span>
+                <span class="n">channels</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">gwy_key</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span> <span class="o">=</span> <span class="n">current_channel</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current_channel</span> <span class="o">=</span> <span class="n">channels</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">gwy_key</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">):</span>          
+                <span class="k">pass</span>
+
+        <span class="c1"># The data structure of the gwy file will be used to create the main dataset in the h5 file</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">):</span>
+            <span class="n">x_range</span> <span class="o">=</span> <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;xreal&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_range</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="s1">&#39;xres&#39;</span><span class="p">])</span>
+            <span class="c1"># print(&#39;obj {}\nx_vals {}&#39;.format(obj, x_vals))</span>
+
+            <span class="n">y_range</span> <span class="o">=</span> <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;yreal&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">y_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_range</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="s1">&#39;yres&#39;</span><span class="p">])</span>
+            
+            <span class="n">pos_desc</span> <span class="o">=</span> <span class="p">[</span><span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                        <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="s1">&#39;si_unit_xy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unitstr&#39;</span><span class="p">),</span>
+                        <span class="n">x_vals</span><span class="p">),</span>
+                        <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> 
+                        <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="s1">&#39;si_unit_xy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unitstr&#39;</span><span class="p">),</span>
+                        <span class="n">y_vals</span><span class="p">)]</span>
+            <span class="c1"># print(pos_desc)</span>
+
+            <span class="n">spec_dim</span> <span class="o">=</span> <span class="n">gwy_data</span><span class="p">[</span><span class="s1">&#39;/</span><span class="si">{}</span><span class="s1">/data/title&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gwy_key</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+            <span class="n">spec_desc</span> <span class="o">=</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">spec_dim</span><span class="p">,</span>
+                        <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="s1">&#39;si_unit_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unitstr&#39;</span><span class="p">,</span> <span class="s1">&#39;arb. units&#39;</span><span class="p">),</span>
+                        <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="n">two_dim_image</span> <span class="o">=</span> <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+            <span class="n">write_main_dataset</span><span class="p">(</span><span class="n">current_channel</span><span class="p">,</span>
+                                <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">two_dim_image</span><span class="p">,</span>
+                                <span class="nb">len</span><span class="p">(</span><span class="n">pos_desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_desc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span>
+                                <span class="s1">&#39;Raw_Data&#39;</span><span class="p">,</span>
+                                <span class="n">spec_dim</span><span class="p">,</span>
+                                <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="s1">&#39;si_unit_z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unitstr&#39;</span><span class="p">),</span>
+                                <span class="n">pos_desc</span><span class="p">,</span> <span class="n">spec_desc</span><span class="p">)</span>
+            <span class="c1"># print(&#39;main dataset has been written&#39;)</span>
+            <span class="c1"># image data processing</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;meta&#39;</span><span class="p">):</span>
+            <span class="n">meta</span> <span class="o">=</span> <span class="p">{}</span>            
+            <span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">current_channel</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">channels</span>
+
+
+    <span class="k">def</span> <span class="nf">_translate_spectra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use this to translate simple 1D data like force curves</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">current_channel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">gwy_key</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">gwy_key</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">channels</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">current_channel</span> <span class="o">=</span> <span class="n">create_indexed_group</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="s2">&quot;Channel&quot;</span><span class="p">)</span>
+                <span class="n">channels</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">gwy_key</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span> <span class="o">=</span> <span class="n">current_channel</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current_channel</span> <span class="o">=</span> <span class="n">channels</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">gwy_key</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">):</span>          
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;There was an unexpected directory in the spectra file&#39;</span><span class="p">)</span>
+
+        <span class="n">title</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+        <span class="n">unitstr</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;unitstr&#39;</span><span class="p">]</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">]</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;res&#39;</span><span class="p">]</span>
+        <span class="n">real</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;real&#39;</span><span class="p">]</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;off&#39;</span><span class="p">]</span>
+        <span class="n">x_units</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;si_unit_x&#39;</span><span class="p">][</span><span class="s1">&#39;unitstr&#39;</span><span class="p">]</span>
+        <span class="n">y_units</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;si_unit_y&#39;</span><span class="p">][</span><span class="s1">&#39;unitstr&#39;</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;selected&#39;</span><span class="p">]</span>
+        <span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+        <span class="n">pos_desc</span> <span class="o">=</span> <span class="p">[</span><span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">x_units</span><span class="p">,</span> <span class="n">x_vals</span><span class="p">)]</span>
+        <span class="n">spec_desc</span> <span class="o">=</span> <span class="p">[</span><span class="n">Dimension</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">y_units</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+        <span class="n">write_main_dataset</span><span class="p">(</span><span class="n">current_channel</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
+                                <span class="s1">&#39;Raw_Data&#39;</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span>
+                                <span class="n">gwy_data</span><span class="p">[</span><span class="n">obj</span><span class="p">][</span><span class="s1">&#39;si_unit_y&#39;</span><span class="p">],</span>
+                                <span class="n">pos_desc</span><span class="p">,</span> <span class="n">spec_desc</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">channels</span>
+
+
+    <span class="k">def</span> <span class="nf">_translate_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use this to translate graphs</span>
+<span class="sd">        Returns</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">channels</span>
+
+
+    <span class="k">def</span> <span class="nf">_translate_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">channels</span>
+
+
+    <span class="k">def</span> <span class="nf">_translate_xyz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meas_grp</span><span class="p">,</span> <span class="n">gwy_data</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">channels</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">channels</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

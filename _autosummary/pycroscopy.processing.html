@@ -1,0 +1,925 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.processing &mdash; pycroscopy 0.60.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pycroscopy.processing.cluster" href="_autosummary/pycroscopy.processing.cluster.html" />
+    <link rel="prev" title="pycroscopy.io.write_utils" href="_autosummary/pycroscopy.io.write_utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycroscopy.analysis.html">pycroscopy.analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pycroscopy.processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+      <li>pycroscopy.processing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/_autosummary/pycroscopy.processing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.processing">
+<span id="pycroscopy-processing"></span><h1>pycroscopy.processing<a class="headerlink" href="#module-pycroscopy.processing" title="Permalink to this headline">¶</a></h1>
+<p>Physics-independent processing of data including machine learning, image processing, and signal filtering.</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/pycroscopy.processing.cluster.html#module-pycroscopy.processing.cluster" title="pycroscopy.processing.cluster"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cluster</span></code></a></p></td>
+<td><p>The <a class="reference internal" href="#pycroscopy.processing.Cluster" title="pycroscopy.processing.Cluster"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycroscopy.processing.Cluster</span></code></a> along with functions that facilitate the clustering of datasets and their interpretation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/pycroscopy.processing.contrib.html#module-pycroscopy.processing.contrib" title="pycroscopy.processing.contrib"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contrib</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/pycroscopy.processing.decomposition.html#module-pycroscopy.processing.decomposition" title="pycroscopy.processing.decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decomposition</span></code></a></p></td>
+<td><p>A USID wrapper around <a href="#id1"><span class="problematic" id="id2">:module:`sklearn.decomposition`</span></a> to facilitate the reading, writing, reformatting of USID data for decomposition algorithms</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/pycroscopy.processing.fft.html#module-pycroscopy.processing.fft" title="pycroscopy.processing.fft"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fft</span></code></a></p></td>
+<td><p>A collection of 1D and 2D FFT based utilities for image and spectral processing based on the <a href="#id3"><span class="problematic" id="id4">:module:`numpy.fft`</span></a> module</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/pycroscopy.processing.gmode_utils.html#module-pycroscopy.processing.gmode_utils" title="pycroscopy.processing.gmode_utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gmode_utils</span></code></a></p></td>
+<td><p>Utilities for FFT filtering of General-mode spectral imaging datasets</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/pycroscopy.processing.image_processing.html#module-pycroscopy.processing.image_processing" title="pycroscopy.processing.image_processing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_processing</span></code></a></p></td>
+<td><p>Image denoising algorithm based on multivariate statistical analysis approaches as reported in the journal paper: “Feature extraction via similarity search: application to atom finding and denoising in electron and scanning probe microscopy imaging”</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/pycroscopy.processing.proc_utils.html#module-pycroscopy.processing.proc_utils" title="pycroscopy.processing.proc_utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">proc_utils</span></code></a></p></td>
+<td><p>Utilities that help in processing subsets of datasets</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/pycroscopy.processing.signal_filter.html#module-pycroscopy.processing.signal_filter" title="pycroscopy.processing.signal_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signal_filter</span></code></a></p></td>
+<td><p>A class for FFT filtering General-mode spectroscopic imaging data as reported in: [Rapid mapping of polarization switching through complete information acquisition](<a class="reference external" href="http://www.nature.com/articles/ncomms13290">http://www.nature.com/articles/ncomms13290</a>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/pycroscopy.processing.svd_utils.html#module-pycroscopy.processing.svd_utils" title="pycroscopy.processing.svd_utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">svd_utils</span></code></a></p></td>
+<td><p>USID utilities for performing randomized singular value decomposition and reconstructing results</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pycroscopy.processing.Cluster">
+<em class="property">class </em><code class="sig-name descname">Cluster</code><span class="sig-paren">(</span><em class="sig-param">h5_main</em>, <em class="sig-param">estimator</em>, <em class="sig-param">num_comps=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/cluster.html#Cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.Cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class provides a file-wrapper around <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.cluster</span></code> objects. In other words, it extracts and then
+reformats the data present in the provided <code class="xref py py-class docutils literal notranslate"><span class="pre">pyUSID.USIDataset</span></code> object, performs the clustering operation
+using the provided <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.cluster</span></code> object, and writes the results back to the USID HDF5 file after
+formatting the results in an USID compliant manner.</p>
+<p>Constructs the Cluster object. Call the <a class="reference internal" href="#pycroscopy.processing.Cluster.test" title="pycroscopy.processing.Cluster.test"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></a> and
+<a class="reference internal" href="#pycroscopy.processing.Cluster.compute" title="pycroscopy.processing.Cluster.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute()</span></code></a> methods to run the clustering</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_main</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyUSID.USIDataset</span></code> object) – USID Main HDF5 dataset</p></li>
+<li><p><strong>estimator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.cluster</span></code> estimator) – configured clustering algorithm to be applied to the data</p></li>
+<li><p><strong>num_comps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> (</em><em>unsigned</em><em>)</em><em>, </em><em>optional. Default = None / all</em>) – Number of features / spectroscopic indices to be used to cluster the data</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pycroscopy.processing.Cluster.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param">rearrange_clusters=True</em>, <em class="sig-param">override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/cluster.html#Cluster.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.Cluster.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clusters the hdf5 dataset and calculates mean response for each cluster (does not recompute if already computed
+via <a class="reference internal" href="#pycroscopy.processing.Cluster.test" title="pycroscopy.processing.Cluster.test"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></a>) and writes the labels and mean response back to the h5 file.</p>
+<p>Consider calling <a class="reference internal" href="#pycroscopy.processing.Cluster.test" title="pycroscopy.processing.Cluster.test"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></a> to check results before writing to file.
+Results are deleted from memory upon writing to the HDF5 file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rearrange_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. Default = True</em>) – Whether or not the clusters should be re-ordered by relative distances between the mean response</p></li>
+<li><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h5_group</strong> – Reference to the group that contains the clustering results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a> reference</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.Cluster.delete_results">
+<code class="sig-name descname">delete_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/cluster.html#Cluster.delete_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.Cluster.delete_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes results from memory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.Cluster.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param">rearrange_clusters=True</em>, <em class="sig-param">override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/cluster.html#Cluster.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.Cluster.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clusters the hdf5 dataset and calculates mean response for each cluster. This function does NOT write results to
+the hdf5 file. Call <a class="reference internal" href="#pycroscopy.processing.Cluster.compute" title="pycroscopy.processing.Cluster.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute()</span></code></a> to  write to the file.
+Handles complex, compound datasets such that the
+mean response vector for each cluster matrix is of the same data-type as the input matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rearrange_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. Default = True</em>) – Whether or not the clusters should be re-ordered by relative distances between the mean response</p></li>
+<li><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>labels</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – 1D unsigned integer array containing the cluster labels as obtained from the fit</p></li>
+<li><p><strong>mean_response</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – 2D array containing the mean response for each cluster arranged as [cluster number, response]</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.Cluster.use_partial_computation">
+<code class="sig-name descname">use_partial_computation</code><span class="sig-paren">(</span><em class="sig-param">h5_partial_group=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.processing.Cluster.use_partial_computation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the necessary parameters from the provided h5 group to resume computation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h5_partial_group</strong> (<a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a>) – Group containing partially computed results</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.processing.Decomposition">
+<em class="property">class </em><code class="sig-name descname">Decomposition</code><span class="sig-paren">(</span><em class="sig-param">h5_main</em>, <em class="sig-param">estimator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/decomposition.html#Decomposition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.Decomposition" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class provides a file-wrapper around <a href="#id5"><span class="problematic" id="id6">:module:`sklearn.decomposition`</span></a> objects. In other words, it extracts and then
+reformats the data present in the provided <code class="xref py py-class docutils literal notranslate"><span class="pre">pyUSID.USIDataset</span></code> object, performs the decomposition operation
+using the provided <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.decomposition</span></code> object, and writes the results back to the USID HDF5 file after
+formatting the results in an USID compliant manner.</p>
+<p>Constructs the Decomposition object. Call the <a class="reference internal" href="#pycroscopy.processing.Decomposition.test" title="pycroscopy.processing.Decomposition.test"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></a> and
+<a class="reference internal" href="#pycroscopy.processing.Decomposition.compute" title="pycroscopy.processing.Decomposition.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute()</span></code></a> methods to run the decomposition</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_main</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyUSID.USIDataset</span></code> object) – USID Main HDF5 dataset with embedded ancillary spectroscopic, position indices and values datasets</p></li>
+<li><p><strong>estimator</strong> (<a href="#id7"><span class="problematic" id="id8">:module:`sklearn.decomposition`</span></a> object) – configured decomposition object to apply to the data</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pycroscopy.processing.Decomposition.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param">override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/decomposition.html#Decomposition.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.Decomposition.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decomposes the hdf5 dataset and calculates mean response for each cluster (does not recompute if already computed
+via <a class="reference internal" href="#pycroscopy.processing.Decomposition.test" title="pycroscopy.processing.Decomposition.test"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></a>) and writes the labels and mean response back to the h5 file.</p>
+<p>Consider calling <a class="reference internal" href="#pycroscopy.processing.Decomposition.test" title="pycroscopy.processing.Decomposition.test"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></a> to check results before writing to file.
+Results are deleted from memory upon writing to the HDF5 file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h5_group</strong> – Reference to the group that contains the decomposition results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a> reference</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.Decomposition.delete_results">
+<code class="sig-name descname">delete_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/decomposition.html#Decomposition.delete_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.Decomposition.delete_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes results from memory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.Decomposition.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param">override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/decomposition.html#Decomposition.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.Decomposition.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decomposes the hdf5 dataset to calculate the components and projection. This function does NOT write results to
+the hdf5 file. Call <a class="reference internal" href="#pycroscopy.processing.Decomposition.compute" title="pycroscopy.processing.Decomposition.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute()</span></code></a> to  write to the file. Handles
+complex, compound datasets such that the
+components are of the same data-type as the input matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>components</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Components</p></li>
+<li><p><strong>projections</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Projections</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.Decomposition.use_partial_computation">
+<code class="sig-name descname">use_partial_computation</code><span class="sig-paren">(</span><em class="sig-param">h5_partial_group=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.processing.Decomposition.use_partial_computation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the necessary parameters from the provided h5 group to resume computation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h5_partial_group</strong> (<a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a>) – Group containing partially computed results</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.processing.ImageWindow">
+<em class="property">class </em><code class="sig-name descname">ImageWindow</code><span class="sig-paren">(</span><em class="sig-param">h5_main</em>, <em class="sig-param">max_RAM_mb=1024</em>, <em class="sig-param">cores=None</em>, <em class="sig-param">reset=True</em>, <em class="sig-param">**image_args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class will handle the reading of a raw image file, creating windows from it, and writing those
+windows to an HDF5 file.</p>
+<p>Setup the image windowing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_main</strong> (<a class="reference external" href="http://docs.h5py.org/en/latest/high/dataset.html#h5py.Dataset" title="(in h5py v2.10)"><em>h5py.Dataset</em></a>) – HDF5 Dataset containing the data to be windowed</p></li>
+<li><p><strong>max_RAM_mb</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – integer maximum amount of ram, in Mb, to use in windowing
+Default 1024</p></li>
+<li><p><strong>cores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – integer number of [logical] CPU cores to use in windowing
+Defualt None, use number of available cores minus 2</p></li>
+<li><p><strong>reset</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – should all data in the hdf5 file be deleted</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.abs_fft_func">
+<em class="property">static </em><code class="sig-name descname">abs_fft_func</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.abs_fft_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.abs_fft_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take the 2d FFT of each window in <cite>windows</cite> and return in the proper form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – Windowed image to take the FFT of</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>windows</strong> – Array of the Magnitude of the FFT of each window for the input
+<cite>image</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.build_clean_image">
+<code class="sig-name descname">build_clean_image</code><span class="sig-paren">(</span><em class="sig-param">h5_win=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.build_clean_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.build_clean_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstructs the cleaned image from the windowed dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h5_win</strong> (<em>HDF5 dataset</em><em> , </em><em>optional</em>) – The windowed image to be reconstructed.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h5_clean</strong> – The cleaned image</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>HDF5 dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.clean_and_build_batch">
+<code class="sig-name descname">clean_and_build_batch</code><span class="sig-paren">(</span><em class="sig-param">h5_win=None</em>, <em class="sig-param">components=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.clean_and_build_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.clean_and_build_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rebuild the Image from the SVD results on the windows
+Optionally, only use components less than n_comp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_win</strong> (<em>hdf5 Dataset</em><em>, </em><em>optional</em>) – dataset containing the windowed image which SVD was performed on</p></li>
+<li><p><strong>components</strong> (<em>{int</em><em>, </em><em>iterable of int</em><em>, </em><em>slice} optional</em>) – <p>Defines which components to keep
+Default - None, all components kept</p>
+<p>Input Types
+integer : Components less than the input will be kept
+length 2 iterable of integers : Integers define start and stop of component slice to retain
+other iterable of integers or slice : Selection of component indices to retain</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>clean_wins</strong> – the cleaned windows</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>HDF5 Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.clean_and_build_separate_components">
+<code class="sig-name descname">clean_and_build_separate_components</code><span class="sig-paren">(</span><em class="sig-param">h5_win=None</em>, <em class="sig-param">components=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.clean_and_build_separate_components"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.clean_and_build_separate_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rebuild the Image from the SVD results on the windows
+Optionally, only use components less than n_comp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_win</strong> (<em>hdf5 Dataset</em><em>, </em><em>optional</em>) – dataset containing the windowed image which SVD was performed on</p></li>
+<li><p><strong>components</strong> – Defines which components to keep
+Default - None, all components kept</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>clean_wins</strong> – the cleaned windows</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>HDF5 Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.do_windowing">
+<code class="sig-name descname">do_windowing</code><span class="sig-paren">(</span><em class="sig-param">win_x=None</em>, <em class="sig-param">win_y=None</em>, <em class="sig-param">win_step_x=1</em>, <em class="sig-param">win_step_y=1</em>, <em class="sig-param">win_fft=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.do_windowing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.do_windowing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the windows from the normalized image and write them to the file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>win_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – size of the window, in pixels, in the horizontal direction
+Default None, a guess will be made based on the FFT of the image</p></li>
+<li><p><strong>win_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – size of the window, in pixels, in the vertical direction
+Default None, a guess will be made based on the FFT of the image</p></li>
+<li><p><strong>win_step_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – step size, in pixels, to take between windows in the horizontal direction
+Default 1</p></li>
+<li><p><strong>win_step_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – step size, in pixels, to take between windows in the vertical direction
+Default 1</p></li>
+<li><p><strong>win_fft</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – What kind of fft should be stored with the windows.  Options are
+None - Only the window
+‘abs’ - Only the magnitude of the fft
+‘data+abs’ - The window and magnitude of the fft
+‘data+complex’ - The window and the complex fft
+Default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h5_wins</strong> – Dataset containing the flattened windows</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>HDF5 Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.plot_clean_image">
+<code class="sig-name descname">plot_clean_image</code><span class="sig-paren">(</span><em class="sig-param">h5_clean=None</em>, <em class="sig-param">image_path=None</em>, <em class="sig-param">image_type='png'</em>, <em class="sig-param">save_plots=True</em>, <em class="sig-param">show_plots=False</em>, <em class="sig-param">cmap='gray'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.plot_clean_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.plot_clean_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the cleaned image stored in the HDF5 dataset h5_clean</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_clean</strong> (<em>HDF5 dataset</em><em>, </em><em>optional</em>) – cleaned image to be plotted</p></li>
+<li><p><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – path to save cleaned image file
+Default None, ‘_clean’ will be appened to the name of the input image</p></li>
+<li><p><strong>image_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – image format to save the cleaned image as
+Default ‘png’, all formats recognized by matplotlib.pyplot.imsave
+are allowed</p></li>
+<li><p><strong>save_plots</strong> (<em>Boolean</em><em>, </em><em>pptional</em>) – If true, the image will be saved to image_path
+with the extention specified by image_type
+Default True</p></li>
+<li><p><strong>show_plots</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – If true, the image will be displayed on the screen
+Default False</p></li>
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – matplotlib colormap string designation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>clean_image</strong> – object holding the plot of the cleaned image</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Axis_Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.win_abs_fft_func">
+<em class="property">static </em><code class="sig-name descname">win_abs_fft_func</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.win_abs_fft_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.win_abs_fft_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take the 2d FFT of each window in <cite>windows</cite> and return in the proper form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – Windowed image to take the FFT of</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>windows</strong> – Array of windows and the Magnitude of the FFT of each window for the input
+<cite>image</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.win_comp_fft_func">
+<em class="property">static </em><code class="sig-name descname">win_comp_fft_func</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.win_comp_fft_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.win_comp_fft_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take the 2d FFT of each window in <cite>windows</cite> and return in the proper form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – Windowed image to take the FFT of</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>windows</strong> – Array of windows and the FFT of each window for the input <cite>image</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.win_data_func">
+<em class="property">static </em><code class="sig-name descname">win_data_func</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.win_data_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.win_data_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the input image in the <cite>windata32</cite> format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – Windowed image to take the FFT of</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>windows</strong> – Array the image in the windata32 format</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.ImageWindow.window_size_extract">
+<code class="sig-name descname">window_size_extract</code><span class="sig-paren">(</span><em class="sig-param">num_peaks=2</em>, <em class="sig-param">save_plots=True</em>, <em class="sig-param">show_plots=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/image_processing.html#ImageWindow.window_size_extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ImageWindow.window_size_extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take the normalized image and extract from it an optimal window size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_peaks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – number of peaks to use during least squares fit
+Default 2</p></li>
+<li><p><strong>save_plots</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – If True then a plot showing the quality of the fit will be
+generated and saved to disk.  Ignored if do_fit is false.
+Default True</p></li>
+<li><p><strong>show_plots</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – If True then a plot showing the quality of the fit will be
+generated and shown on screen.  Ignored if do_fit is false.
+Default False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>window_size</strong> (<em>int</em>) – Optimal window size in pixels</p></li>
+<li><p><strong>psf_width</strong> (<em>int</em>) – Estimate atom spacing in pixels</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.processing.SVD">
+<em class="property">class </em><code class="sig-name descname">SVD</code><span class="sig-paren">(</span><em class="sig-param">h5_main</em>, <em class="sig-param">num_components=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/svd_utils.html#SVD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.SVD" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class provides a file-wrapper around the <code class="xref py py-meth docutils literal notranslate"><span class="pre">sklearn.utils.extmath.randomized_svd()</span></code> function.
+In other words, it extracts and then reformats the data present in the provided <code class="xref py py-class docutils literal notranslate"><span class="pre">pyUSID.USIDataset</span></code> object,
+performs the randomized SVD operation and writes the results back to the USID HDF5 file after
+formatting the results in an USID compliant manner.</p>
+<p>Perform the SVD decomposition on the selected dataset and write the results to h5 file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_main</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyUSID.USIDataset</span></code> object) – USID Main HDF5 dataset that will be decomposed</p></li>
+<li><p><strong>num_components</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Number of components to decompose h5_main into.  Default None.</p></li>
+<li><p><strong>kwargs</strong> – Arguments to be sent to Process</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pycroscopy.processing.SVD.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param">override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/svd_utils.html#SVD.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.SVD.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes SVD (by calling test_on_subset() if it has not already been called) and writes results to file.
+Consider calling test() to check results before writing to file. Results are deleted from memory
+upon writing to the HDF5 file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h5_results_grp</strong> – HDF5 Group containing all the results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a>  object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.SVD.delete_results">
+<code class="sig-name descname">delete_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/svd_utils.html#SVD.delete_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.SVD.delete_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes results from memory.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycroscopy.processing.SVD.process_name">
+<code class="sig-name descname">process_name</code><em class="property"> = None</em><a class="headerlink" href="#pycroscopy.processing.SVD.process_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the size of the main data in memory and compare to max_mem
+We use the minimum of the actual dtype’s itemsize and float32 since we
+don’t want to read it in yet and do the proper type conversions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.SVD.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param">override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/svd_utils.html#SVD.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.SVD.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies randomised VD to the dataset. This function does NOT write results to the hdf5 file. Call compute() to
+write to the file. Handles complex, compound datasets such that the V matrix is of the same data-type as the
+input matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>U</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Abundance matrix</p></li>
+<li><p><strong>S</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – variance vector</p></li>
+<li><p><strong>V</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – eigenvector matrix</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.SVD.use_partial_computation">
+<code class="sig-name descname">use_partial_computation</code><span class="sig-paren">(</span><em class="sig-param">h5_partial_group=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.processing.SVD.use_partial_computation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the necessary parameters from the provided h5 group to resume computation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h5_partial_group</strong> (<a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a>) – Group containing partially computed results</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.rebuild_svd">
+<code class="sig-name descname">rebuild_svd</code><span class="sig-paren">(</span><em class="sig-param">h5_main</em>, <em class="sig-param">components=None</em>, <em class="sig-param">cores=None</em>, <em class="sig-param">max_RAM_mb=1024</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/svd_utils.html#rebuild_svd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.rebuild_svd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rebuild the Image from the SVD results on the windows
+Optionally, only use components less than n_comp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_main</strong> (<em>hdf5 Dataset</em>) – dataset which SVD was performed on</p></li>
+<li><p><strong>components</strong> (<em>{int</em><em>, </em><em>iterable of int</em><em>, </em><em>slice} optional</em>) – <p>Defines which components to keep
+Default - None, all components kept</p>
+<p>Input Types
+integer : Components less than the input will be kept
+length 2 iterable of integers : Integers define start and stop of component slice to retain
+other iterable of integers or slice : Selection of component indices to retain</p>
+</p></li>
+<li><p><strong>cores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – How many cores should be used to rebuild
+Default - None, all but 2 cores will be used, min 1</p></li>
+<li><p><strong>max_RAM_mb</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum ammount of memory to use when rebuilding, in Mb.
+Default - 1024Mb</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rebuilt_data</strong> – the rebuilt dataset</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>HDF5 Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.processing.SignalFilter">
+<em class="property">class </em><code class="sig-name descname">SignalFilter</code><span class="sig-paren">(</span><em class="sig-param">h5_main</em>, <em class="sig-param">frequency_filters=None</em>, <em class="sig-param">noise_threshold=None</em>, <em class="sig-param">write_filtered=True</em>, <em class="sig-param">write_condensed=False</em>, <em class="sig-param">num_pix=1</em>, <em class="sig-param">phase_rad=0</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/signal_filter.html#SignalFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.SignalFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters the entire h5 dataset with the given filtering parameters.
+:param h5_main: Dataset to process
+:type h5_main: h5py.Dataset object
+:param frequency_filters: Frequency (vertical) filters to apply to signal
+:type frequency_filters: (Optional) single or list of pycroscopy.fft.FrequencyFilter objects
+:param noise_threshold: Noise tolerance to apply to data. Value must be within (0, 1)
+:type noise_threshold: (Optional) float. Default - None
+:param write_filtered: Whether or not to write the filtered data to file
+:type write_filtered: (Optional) bool. Default - True
+:param write_condensed: Whether or not to write the condensed data in frequency space to file. Use this for datasets that are very</p>
+<blockquote>
+<div><p>large but sparse in frequency space.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_pix</strong> (<em>(</em><em>Optional</em><em>) </em><em>uint. Default - 1</em>) – Number of pixels to use for filtering. More pixels means a lower noise floor and the ability to pick up
+weaker signals. Use only if absolutely necessary. This value must be a divisor of the number of pixels in
+the dataset</p></li>
+<li><p><strong>phase_rad</strong> (<em>(</em><em>Optional</em><em>)</em><em> float</em>) – Degrees by which the output is rotated with respect to the input to compensate for phase lag.
+This feature has NOT yet been implemented.</p></li>
+<li><p><strong>kwargs</strong> (<em>(</em><em>Optional</em><em>)</em><em> dictionary</em>) – Please see Process class for additional inputs</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pycroscopy.processing.SignalFilter.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param">override=False</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.processing.SignalFilter.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates placeholders for the results, applies the <code class="xref py py-meth docutils literal notranslate"><span class="pre">_unit_computation()</span></code>
+to chunks of the dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – By default, compute will simply return duplicate results to avoid recomputing or resume computation on a
+group with partial results. Set to True to force fresh computation.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – arguments to the mapped function in the correct order</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – keyword arguments to the mapped function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h5_results_grp</strong> – Group containing all the results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.SignalFilter.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param">pix_ind=None</em>, <em class="sig-param">excit_wfm=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/signal_filter.html#SignalFilter.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.SignalFilter.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the signal filter on a single pixel (randomly chosen unless manually specified) worth of data.
+:param pix_ind: Index of the pixel whose data will be used for inference
+:type pix_ind: int, optional. default = random
+:param excit_wfm: Waveform against which the raw and filtered signals will be plotted. This waveform can be a fraction of the</p>
+<blockquote>
+<div><p>length of a single pixel’s data. For example, in the case of G-mode, where a single scan line is yet to be
+broken down into pixels, the excitation waveform for a single pixel can br provided to automatically
+break the raw and filtered responses also into chunks of the same size.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>fig, axes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.SignalFilter.use_partial_computation">
+<code class="sig-name descname">use_partial_computation</code><span class="sig-paren">(</span><em class="sig-param">h5_partial_group=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.processing.SignalFilter.use_partial_computation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the necessary parameters from the provided h5 group to resume computation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h5_partial_group</strong> (<a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a>) – Group containing partially computed results</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycroscopy.processing.SignalFilter.write_condensed">
+<code class="sig-name descname">write_condensed</code><em class="property"> = None</em><a class="headerlink" href="#pycroscopy.processing.SignalFilter.write_condensed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remember that the default number of pixels corresponds to only the raw data that can be held in memory
+In the case of signal filtering, the datasets that will occupy space are:
+1. Raw, 2. filtered (real + freq space copies), 3. Condensed (substantially lesser space)
+The actual scaling of memory depends on options:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.processing.ClusterTree">
+<em class="property">class </em><code class="sig-name descname">ClusterTree</code><span class="sig-paren">(</span><em class="sig-param">linkage_pairing</em>, <em class="sig-param">labels</em>, <em class="sig-param">distances=None</em>, <em class="sig-param">centroids=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pycroscopy/processing/tree.html#ClusterTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.ClusterTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a tree representation from the provided linkage pairing. Useful for clustering</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linkage_pairing</strong> (<em>2D unsigned int numpy array</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Linkage pairing that describes a tree structure. The matrix should result in a single tree apex.</p></li>
+<li><p><strong>labels</strong> (<em>1D unsigned int numpy array</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Labels assigned to each of the positions in the main dataset. Eg. Labels from clustering</p></li>
+<li><p><strong>distances</strong> (<em>(</em><em>Optional</em><em>) </em><em>1D numpy float array</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Distances between clusters</p></li>
+<li><p><strong>centroids</strong> (<em>(</em><em>Optional</em><em>) </em><em>2D numpy array</em>) – Mean responses for each of the clusters. These will be propagated up</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="pycroscopy.processing.ClusterTree.centroids">
+<code class="sig-name descname">centroids</code><em class="property"> = None</em><a class="headerlink" href="#pycroscopy.processing.ClusterTree.centroids" title="Permalink to this definition">¶</a></dt>
+<dd><p>this list maintains pointers to the nodes pertaining to that cluster id for quick look-ups
+By default this lookup table just contains the number indices of these clusters.
+They will be replaced with node objects as and when the objects are created</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycroscopy.processing.ClusterTree.labels">
+<code class="sig-name descname">labels</code><em class="property"> = None</em><a class="headerlink" href="#pycroscopy.processing.ClusterTree.labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>the labels for the leaf nodes need to be calculated manually from the provided labels
+Populate the lowest level nodes / leaves first:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="_autosummary/pycroscopy.processing.cluster.html" class="btn btn-neutral float-right" title="pycroscopy.processing.cluster" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="_autosummary/pycroscopy.io.write_utils.html" class="btn btn-neutral float-left" title="pycroscopy.io.write_utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

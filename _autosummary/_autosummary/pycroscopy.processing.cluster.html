@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.processing.cluster &mdash; pycroscopy 0.60.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.processing.contrib" href="pycroscopy.processing.contrib.html" />
+    <link rel="prev" title="pycroscopy.processing" href="../pycroscopy.processing.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.processing.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.processing.html">pycroscopy.processing</a> &raquo;</li>
+        
+      <li>pycroscopy.processing.cluster</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.processing.cluster.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.processing.cluster">
+<span id="pycroscopy-processing-cluster"></span><h1>pycroscopy.processing.cluster<a class="headerlink" href="#module-pycroscopy.processing.cluster" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="../pycroscopy.processing.html#pycroscopy.processing.Cluster" title="pycroscopy.processing.Cluster"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycroscopy.processing.Cluster</span></code></a> along with functions that facilitate the clustering of datasets and their
+interpretation.</p>
+<p>Created on Tue Jan 05 07:55:56 2016</p>
+<p>&#64;author: Suhas Somnath, Chris Smith</p>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycroscopy.processing.cluster.reorder_clusters" title="pycroscopy.processing.cluster.reorder_clusters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reorder_clusters</span></code></a>(labels, mean_response[, …])</p></td>
+<td><p>Reorders clusters by the distances between the clusters</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycroscopy.processing.cluster.Cluster" title="pycroscopy.processing.cluster.Cluster"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cluster</span></code></a>(h5_main, estimator[, num_comps])</p></td>
+<td><p>This class provides a file-wrapper around <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.cluster</span></code> objects.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pycroscopy.processing.cluster.Cluster">
+<em class="property">class </em><code class="sig-name descname">Cluster</code><span class="sig-paren">(</span><em class="sig-param">h5_main</em>, <em class="sig-param">estimator</em>, <em class="sig-param">num_comps=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/cluster.html#Cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.cluster.Cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class provides a file-wrapper around <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.cluster</span></code> objects. In other words, it extracts and then
+reformats the data present in the provided <code class="xref py py-class docutils literal notranslate"><span class="pre">pyUSID.USIDataset</span></code> object, performs the clustering operation
+using the provided <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.cluster</span></code> object, and writes the results back to the USID HDF5 file after
+formatting the results in an USID compliant manner.</p>
+<p>Constructs the Cluster object. Call the <a class="reference internal" href="../pycroscopy.processing.html#pycroscopy.processing.Cluster.test" title="pycroscopy.processing.Cluster.test"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></a> and
+<a class="reference internal" href="../pycroscopy.processing.html#pycroscopy.processing.Cluster.compute" title="pycroscopy.processing.Cluster.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute()</span></code></a> methods to run the clustering</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_main</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyUSID.USIDataset</span></code> object) – USID Main HDF5 dataset</p></li>
+<li><p><strong>estimator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.cluster</span></code> estimator) – configured clustering algorithm to be applied to the data</p></li>
+<li><p><strong>num_comps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> (</em><em>unsigned</em><em>)</em><em>, </em><em>optional. Default = None / all</em>) – Number of features / spectroscopic indices to be used to cluster the data</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pycroscopy.processing.cluster.Cluster.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param">rearrange_clusters=True</em>, <em class="sig-param">override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/cluster.html#Cluster.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.cluster.Cluster.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clusters the hdf5 dataset and calculates mean response for each cluster (does not recompute if already computed
+via <a class="reference internal" href="../pycroscopy.processing.html#pycroscopy.processing.Cluster.test" title="pycroscopy.processing.Cluster.test"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></a>) and writes the labels and mean response back to the h5 file.</p>
+<p>Consider calling <a class="reference internal" href="../pycroscopy.processing.html#pycroscopy.processing.Cluster.test" title="pycroscopy.processing.Cluster.test"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></a> to check results before writing to file.
+Results are deleted from memory upon writing to the HDF5 file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rearrange_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. Default = True</em>) – Whether or not the clusters should be re-ordered by relative distances between the mean response</p></li>
+<li><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h5_group</strong> – Reference to the group that contains the clustering results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a> reference</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.cluster.Cluster.delete_results">
+<code class="sig-name descname">delete_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/cluster.html#Cluster.delete_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.cluster.Cluster.delete_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes results from memory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.cluster.Cluster.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param">rearrange_clusters=True</em>, <em class="sig-param">override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/cluster.html#Cluster.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.cluster.Cluster.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clusters the hdf5 dataset and calculates mean response for each cluster. This function does NOT write results to
+the hdf5 file. Call <a class="reference internal" href="../pycroscopy.processing.html#pycroscopy.processing.Cluster.compute" title="pycroscopy.processing.Cluster.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute()</span></code></a> to  write to the file.
+Handles complex, compound datasets such that the
+mean response vector for each cluster matrix is of the same data-type as the input matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rearrange_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. Default = True</em>) – Whether or not the clusters should be re-ordered by relative distances between the mean response</p></li>
+<li><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>labels</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – 1D unsigned integer array containing the cluster labels as obtained from the fit</p></li>
+<li><p><strong>mean_response</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – 2D array containing the mean response for each cluster arranged as [cluster number, response]</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.cluster.Cluster.use_partial_computation">
+<code class="sig-name descname">use_partial_computation</code><span class="sig-paren">(</span><em class="sig-param">h5_partial_group=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.processing.cluster.Cluster.use_partial_computation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the necessary parameters from the provided h5 group to resume computation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h5_partial_group</strong> (<a class="reference external" href="http://docs.h5py.org/en/latest/high/group.html#h5py.Group" title="(in h5py v2.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">h5py.Group</span></code></a>) – Group containing partially computed results</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.cluster.reorder_clusters">
+<code class="sig-name descname">reorder_clusters</code><span class="sig-paren">(</span><em class="sig-param">labels</em>, <em class="sig-param">mean_response</em>, <em class="sig-param">transform_function=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/cluster.html#reorder_clusters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.cluster.reorder_clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reorders clusters by the distances between the clusters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – 1D unsigned integer array containing labels for the clusters</p></li>
+<li><p><strong>mean_response</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – 2D array containing mean response of each cluster arranged as [cluster , features]</p></li>
+<li><p><strong>transform_function</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function that will convert the mean_response into real values</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>new_labels</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – 1D unsigned integer array containing labels for the clusters arranged by distances</p></li>
+<li><p><strong>new_mean_response</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – 2D array containing corresponding mean response of each cluster arranged as [cluster , features]</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycroscopy.processing.contrib.html" class="btn btn-neutral float-right" title="pycroscopy.processing.contrib" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../pycroscopy.processing.html" class="btn btn-neutral float-left" title="pycroscopy.processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

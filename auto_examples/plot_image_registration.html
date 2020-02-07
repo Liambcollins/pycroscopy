@@ -1,0 +1,706 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Image alignment and registration &mdash; pycroscopy 0.60.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Spectral Unmixing" href="plot_spectral_unmixing.html" />
+    <link rel="prev" title="FFT &amp; Filtering of Atomically Resolved Images" href="plot_fft_2d_filtering.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples &amp; Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorials-on-fundamental-data-tools">Tutorials on fundamental data tools</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#scientific-data-analysis">Scientific Data Analysis</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_fft_2d_filtering.html">FFT &amp; Filtering of Atomically Resolved Images</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Image alignment and registration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#load-the-data-from-the-hdf5-file">Load the data from the hdf5 file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#access-and-visualize">Access and Visualize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#extract-data-as-numpy-arrays">Extract data as numpy arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#normalize-images">Normalize images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visualization">visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interpolate-image-and-the-z-channel-data">Interpolate image and the Z channel data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preparing-for-image-registration">Preparing for image registration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#image-registration">Image Registration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plot_spectral_unmixing.html">Spectral Unmixing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Examples &amp; Tutorials</a> &raquo;</li>
+        
+      <li>Image alignment and registration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/auto_examples/plot_image_registration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-image-registration-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="image-alignment-and-registration">
+<span id="sphx-glr-auto-examples-plot-image-registration-py"></span><h1>Image alignment and registration<a class="headerlink" href="#image-alignment-and-registration" title="Permalink to this headline">¶</a></h1>
+<p><strong>Stephen Jesse, Alex Belianinov, Suhas Somnath</strong></p>
+<ul class="simple">
+<li><p>Institute for Functional Imaging of Materials</p></li>
+<li><p>Center for Nanophase Materials Sciences</p></li>
+</ul>
+<p>Oak Ridge National Laboratory, Oak Ridge TN 37831, USA</p>
+<p>7/29/2015</p>
+<p>Often scientists find themselves wanting to compare data of various origins on the same sample that has a location of
+interest where multiple experiments have been carried out. Often, these data sets may not have the same resolution, not
+have been captured over the exact same region, be distorted in different ways due to drift, and even have different
+dimensionality. In this example, we will make use of algorithms which attempt to find the best alignment transformation
+between data sets.</p>
+<p>Below, the Normalized Topo Image is a result of STM (scanning tunneling microscope) imaging captured prior to
+collecting a lower spatial resolution, 3D scanning tunneling spectroscopic (STS) data set that experienced drift as
+is evident shown in Z Channel Spectroscopy (where Z is height roughly corresponding to topography). We would like to
+map the spectroscopic result onto exact locations in the 2D map (high resolution) to correlate topo features to the
+electronic effects captured by STS. To do this, the image (and the associated full 3D data set) on the right needs to
+be transformed to look like the image on the left.</p>
+<p>Gather our tools and load necessary libraries</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">unicode_literals</span>  <span class="c1"># ensure python3 compatibility</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># fast math</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># plotting</span>
+<span class="kn">import</span> <span class="nn">h5py</span>  <span class="c1"># reading the data file</span>
+<span class="kn">import</span> <span class="nn">os</span>  <span class="c1"># file operations</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span><span class="p">,</span> <span class="n">stats</span>  <span class="c1"># various convenience tools</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">transform</span>  <span class="c1"># image processing and registration</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">package</span><span class="p">):</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">package</span><span class="p">])</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># This package is not part of anaconda and may need to be installed.</span>
+    <span class="kn">import</span> <span class="nn">wget</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;wget not found.  Will install with pip.&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pip</span>
+    <span class="n">install</span><span class="p">(</span><span class="s1">&#39;wget&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">wget</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pyUSID</span> <span class="k">as</span> <span class="nn">usid</span> <span class="c1"># used mainly for visualization purposes here</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;pyUSID not found.  Will install with pip.&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pip</span>
+    <span class="n">install</span><span class="p">(</span><span class="s1">&#39;pyUSID&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pyUSID</span> <span class="k">as</span> <span class="nn">usid</span>
+</pre></div>
+</div>
+<p>Defining a few handy functions that will be reused multiple times</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">twin_image_plot</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handy function that plots two images side by side with colorbars</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    images : list or array-like</span>
+<span class="sd">        List of two images defined as 2D numpy arrays</span>
+<span class="sd">    titles : list or array-like</span>
+<span class="sd">        List of the titles for each image</span>
+<span class="sd">    cmap : (Optional) matplotlib.pyplot colormap object or string</span>
+<span class="sd">        Colormap to use for displaying the images</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig : Figure</span>
+<span class="sd">        Figure containing the plots</span>
+<span class="sd">    axes : 1D array_like of axes objects</span>
+<span class="sd">        Axes of the individual plots within `fig`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">titles</span><span class="p">):</span>
+        <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+        <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span>
+
+
+<span class="k">def</span> <span class="nf">normalize_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalizes the provided image from 0 to 1</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image : np.array object</span>
+<span class="sd">        Image to be normalized</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    image : np.array object</span>
+<span class="sd">        Image normalized from 0 to 1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">image</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">image</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">plot_markers</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    plots markers on an image with different colors</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    axis : matplotlib.pyplot.axes</span>
+<span class="sd">        Axis to plot in</span>
+<span class="sd">    coordinates : Iterable</span>
+<span class="sd">        Tuple containing the X and Y coordinate of the point</span>
+<span class="sd">    colors : str</span>
+<span class="sd">        String name of the color of the point</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">clr</span><span class="p">,</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">):</span>
+        <span class="n">axis</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">clr</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="load-the-data-from-the-hdf5-file">
+<h2>Load the data from the hdf5 file<a class="headerlink" href="#load-the-data-from-the-hdf5-file" title="Permalink to this headline">¶</a></h2>
+<p>We will be using an data file available on our GitHub project page by default. You are encouraged
+to download this document as a Jupyter Notebook (button at the bottom of the page) and use your own data instead.
+When using your own data, you can skip this cell and provide the path to your data using the variable - h5_path</p>
+<p>We begin by loading the high resolution STM image, the Z component image of the spectroscopic data set, and the
+spectroscopic data set itself</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Downloading the example file from the pycroscopy Github project</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/pycroscopy/pycroscopy/raw/master/data/sts_data_image_registration.h5&#39;</span>
+<span class="n">h5_path</span> <span class="o">=</span> <span class="s1">&#39;temp.h5&#39;</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">wget</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">h5_path</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now let us look at the contents of this file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h5_file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">print_tree</span><span class="p">(</span><span class="n">h5_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/
+├ Measurement_000
+  ---------------
+  ├ Channel_000
+    -----------
+    ├ Position_Indices
+    ├ Position_Values
+    ├ STM_Topography
+    ├ Spectroscopic_Indices
+    ├ Spectroscopic_Values
+├ Measurement_001
+  ---------------
+  ├ Channel_000
+    -----------
+    ├ STS
+    ├ Spectroscopic_Indices
+    ├ Spectroscopic_Values
+  ├ Channel_001
+    -----------
+    ├ STS_Z_Contrast
+    ├ Spectroscopic_Indices
+    ├ Spectroscopic_Values
+  ├ Position_Indices
+  ├ Position_Values
+</pre></div>
+</div>
+<p>Clearly, this data file has several datasets, many of them are supporting information for central or main datasets.</p>
+<p>The data are formatting according to the Universal Spectroscopic and Imaing Data (USID) model and is stored in a
+Hierarchical Data Format (HDF5) file. To learn more about this standardized file format for imaging and spectroscopic
+data, please visit <a class="reference external" href="https://pycroscopy.github.io/USID/about.html">here</a>.
+However, data formatting will not be the focus of this example.</p>
+<p>Let us take a look at the main datasets of interest below. What we observe is that we have three such datasets:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">print_tree</span><span class="p">(</span><span class="n">h5_file</span><span class="p">,</span> <span class="n">main_dsets_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/
+├ Measurement_000
+  ---------------
+  ├ Channel_000
+    -----------
+    ├ STM_Topography
+├ Measurement_001
+  ---------------
+  ├ Channel_000
+    -----------
+    ├ STS
+  ├ Channel_001
+    -----------
+    ├ STS_Z_Contrast
+</pre></div>
+</div>
+</div>
+<div class="section" id="access-and-visualize">
+<h2>Access and Visualize<a class="headerlink" href="#access-and-visualize" title="Permalink to this headline">¶</a></h2>
+<p>Let us look at one of these <cite>USID</cite> <cite>Main</cite> datasets - the Topography.
+Our sister-package - pyUSID has a class called the <code class="docutils literal notranslate"><span class="pre">USIDataset</span></code> that makes it easy to operate on large,
+multi-dimensional scientific datasets.
+Just printing out the USIDataset shows rich scientific information embedded within this object.
+We can also use USIDataset’s <code class="docutils literal notranslate"><span class="pre">visualize()</span></code> method to quickly visualize the dataset</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h5_topo</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">USIDataset</span><span class="p">(</span><span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;/Measurement_000/Channel_000/STM_Topography&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">h5_topo</span><span class="p">)</span>
+<span class="n">h5_topo</span><span class="o">.</span><span class="n">visualize</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_image_registration_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_image_registration_001.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;HDF5 dataset &quot;STM_Topography&quot;: shape (1048576, 1), type &quot;&lt;f4&quot;&gt;
+located at:
+        /Measurement_000/Channel_000/STM_Topography
+Data contains:
+        Height (nm)
+Data dimensions and original shape:
+Position Dimensions:
+        X - size: 1024
+        Y - size: 1024
+Spectroscopic Dimensions:
+        arb - size: 1
+Data Type:
+        float32
+
+(&lt;Figure size 640x480 with 2 Axes&gt;, &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f730691b828&gt;)
+</pre></div>
+</div>
+<p>We can do the same for the other datasets too - Z Contrast in this case:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h5_zcont</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">USIDataset</span><span class="p">(</span><span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;/Measurement_001/Channel_001/STS_Z_Contrast&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">h5_zcont</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">h5_zcont</span><span class="o">.</span><span class="n">visualize</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_image_registration_002.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_image_registration_002.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;HDF5 dataset &quot;STS_Z_Contrast&quot;: shape (1600, 1), type &quot;&lt;f4&quot;&gt;
+located at:
+        /Measurement_001/Channel_001/STS_Z_Contrast
+Data contains:
+        Intensity (a. u.)
+Data dimensions and original shape:
+Position Dimensions:
+        X - size: 40
+        Y - size: 40
+Spectroscopic Dimensions:
+        arb - size: 1
+Data Type:
+        float32
+</pre></div>
+</div>
+<p>Here is the full 3D STS data. Note that this static web page does not allow interactive visualization of this 3D
+dataset. We encourage you to download this document as a jupyter notebook and run it in order to visualize this
+dataset.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h5_sts</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">USIDataset</span><span class="p">(</span><span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;/Measurement_001/Channel_000/STS&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">h5_sts</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">h5_sts</span><span class="o">.</span><span class="n">visualize</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_image_registration_003.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_image_registration_003.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;HDF5 dataset &quot;STS&quot;: shape (1600, 256), type &quot;&lt;f4&quot;&gt;
+located at:
+        /Measurement_001/Channel_000/STS
+Data contains:
+        Current (nA)
+Data dimensions and original shape:
+Position Dimensions:
+        X - size: 40
+        Y - size: 40
+Spectroscopic Dimensions:
+        Bias - size: 256
+Data Type:
+        float32
+interactive(children=(IntSlider(value=19, description=&#39;X&#39;, max=39), IntSlider(value=19, description=&#39;Y&#39;, max=39), IntSlider(value=127, description=&#39;Bias&#39;, max=255), Output()), _dom_classes=(&#39;widget-interact&#39;,))
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract-data-as-numpy-arrays">
+<h2>Extract data as numpy arrays<a class="headerlink" href="#extract-data-as-numpy-arrays" title="Permalink to this headline">¶</a></h2>
+<p>Regardless of the shape of the original scientific dataset, the <code class="docutils literal notranslate"><span class="pre">USIDataset</span></code> can also return the N-dimensional
+form of the dataset via its <code class="docutils literal notranslate"><span class="pre">get_n_dim_form()</span></code> function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">high_res_topo</span> <span class="o">=</span> <span class="n">h5_topo</span><span class="o">.</span><span class="n">get_n_dim_form</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="n">sts_z_contr</span> <span class="o">=</span> <span class="n">h5_zcont</span><span class="o">.</span><span class="n">get_n_dim_form</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="n">h5_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="normalize-images">
+<h2>Normalize images<a class="headerlink" href="#normalize-images" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">high_res_topo</span> <span class="o">=</span> <span class="n">normalize_image</span><span class="p">(</span><span class="n">high_res_topo</span><span class="p">)</span>
+<span class="n">sts_z_contr</span> <span class="o">=</span> <span class="n">normalize_image</span><span class="p">(</span><span class="n">sts_z_contr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="visualization">
+<h2>visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">twin_image_plot</span><span class="p">([</span><span class="n">high_res_topo</span><span class="p">,</span> <span class="n">sts_z_contr</span><span class="p">],</span>
+                            <span class="p">[</span><span class="s1">&#39;STM topography&#39;</span><span class="p">,</span> <span class="s1">&#39;STS Z contrast&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_image_registration_004.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_image_registration_004.png" />
+</div>
+<div class="section" id="interpolate-image-and-the-z-channel-data">
+<h2>Interpolate image and the Z channel data<a class="headerlink" href="#interpolate-image-and-the-z-channel-data" title="Permalink to this headline">¶</a></h2>
+<p>Since our goal is to maximize overlap between the two datasets, we should create some additional datasets with
+matching sizes. The Topo image data is 1024 x 1024 pixels, whereas the STS data is 40 x 40 spatial pixels (plus a 3rd
+dimension of 256 points)</p>
+<p>Let’s create two additional images – an interpolated STS image that is now 1024 x 1024 and a reduced Topo image
+that’s 40 x 40</p>
+<p>First we create an interpolant model, and then evaluate it at an interval that would give us the desired image size</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">z_shape</span> <span class="o">=</span> <span class="n">sts_z_contr</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">topo_shape</span> <span class="o">=</span> <span class="n">high_res_topo</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="n">z_upscaler</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">RectBivariateSpline</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">z_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                             <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">z_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                                             <span class="n">sts_z_contr</span><span class="p">)</span>
+
+<span class="c1"># we now use the instance of the class to run it on a new set of values, which</span>
+<span class="c1"># are still 1 to 40, but now take 40/1024 size steps returning 1024x1024 image</span>
+<span class="n">z_upscaled</span> <span class="o">=</span> <span class="n">z_upscaler</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">z_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">topo_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">z_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">topo_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="c1"># repeat the process for downscaling as above, but simply reverse the direction</span>
+<span class="c1"># feed the fine steps first &amp; then...</span>
+<span class="n">topo_downscaler</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">RectBivariateSpline</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">z_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">topo_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                                  <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">z_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">topo_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                                                  <span class="n">high_res_topo</span><span class="p">)</span>
+
+<span class="c1"># use the class with only big steps, downscalign to a 40x40</span>
+<span class="n">topo_downscaled</span> <span class="o">=</span> <span class="n">topo_downscaler</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">z_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                  <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">z_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="c1"># visualization</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">twin_image_plot</span><span class="p">([</span><span class="n">topo_downscaled</span><span class="p">,</span> <span class="n">z_upscaled</span><span class="p">],</span>
+                            <span class="p">[</span><span class="s1">&#39;Downscaled Topography to Z contrast size&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;Z contrast upscaled to topography size&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_image_registration_005.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_image_registration_005.png" />
+</div>
+<div class="section" id="preparing-for-image-registration">
+<h2>Preparing for image registration<a class="headerlink" href="#preparing-for-image-registration" title="Permalink to this headline">¶</a></h2>
+<p>We now have a choice to make – whether we want to register two 40 x 40 images: Reduced Topo and the original STS, or
+register the two 1024 x 1024 images: Original Topo and the interpolated STS, or do both.</p>
+<p>If you have the time and resources, doing both is a good idea to get a handle on the quality of the registration.
+Let’s try mapping the larger images in this example</p>
+<p>Before getting started, it’s a good idea to also think about what data you’d like to use a reference and which data
+should get transformed. Data that is to remain invariant is referred to as the ‘fixed’ image and the data to get the
+transformation is referred to as ‘moving.’ In our case we want to map the STS data onto the image data, so Topo is
+‘fixed’ and STS is ‘moving’</p>
+<p>Python does not automatically calculate a transformation matrix for you. This is only possible if your images contain
+similar features, which is the case here, as this quick registration is intensity based. There are ways to do this in
+Python using an OpenCV library. Since this library isn’t installed natively with Anaconda, I invite you to explore
+those concepts on your own.
+You have to specify a transform matrix on your own, which is essentially a coordinate matching problem. This seems
+harder initially, but for most of the data this is the only way forward because features will not match in different
+information channels (topography &amp; Raman for example)</p>
+<p>We have selected few points quickly here. As the number of points is increased and the coordinates are more carefully
+selected, the registration quality improves substantially</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># First normalize the up and downscaled images:</span>
+<span class="n">z_upscaled</span> <span class="o">=</span> <span class="n">normalize_image</span><span class="p">(</span><span class="n">z_upscaled</span><span class="p">)</span>
+<span class="n">topo_downscaled</span> <span class="o">=</span> <span class="n">normalize_image</span><span class="p">(</span><span class="n">topo_downscaled</span><span class="p">)</span>
+
+<span class="c1"># define the topography as the image that is fixed and the upscaled Z contrast image as the one that moves</span>
+<span class="c1"># during the image registration</span>
+<span class="n">fixed</span> <span class="o">=</span> <span class="n">high_res_topo</span>
+<span class="n">moving</span> <span class="o">=</span> <span class="n">z_upscaled</span>
+
+<span class="c1"># Define the points that are common:</span>
+<span class="n">src</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">520</span><span class="p">,</span> <span class="mi">522</span><span class="p">),</span>
+       <span class="p">(</span><span class="mi">290</span><span class="p">,</span> <span class="mi">750</span><span class="p">),</span>
+       <span class="p">(</span><span class="mi">780</span><span class="p">,</span> <span class="mi">94</span><span class="p">),</span>
+       <span class="p">(</span><span class="mi">864</span><span class="p">,</span> <span class="mi">508</span><span class="p">)]</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">561</span><span class="p">,</span> <span class="mi">527</span><span class="p">),</span>
+       <span class="p">(</span><span class="mi">325</span><span class="p">,</span> <span class="mi">740</span><span class="p">),</span>
+       <span class="p">(</span><span class="mi">799</span><span class="p">,</span> <span class="mi">190</span><span class="p">),</span>
+       <span class="p">(</span><span class="mi">882</span><span class="p">,</span> <span class="mi">576</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Let’s visualize the pointers on the two images</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># First plot the two images</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">twin_image_plot</span><span class="p">([</span><span class="n">high_res_topo</span><span class="p">,</span> <span class="n">z_upscaled</span><span class="p">],</span>
+                            <span class="p">[</span><span class="s1">&#39;Downscaled Topography to Z contrast size&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;Z contrast upscaled to topography size&#39;</span><span class="p">],</span>
+                            <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="c1"># Now add the markers</span>
+<span class="n">pointer_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">]</span>
+<span class="n">plot_markers</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">src</span><span class="p">,</span> <span class="n">pointer_colors</span><span class="p">)</span>
+<span class="n">plot_markers</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dst</span><span class="p">,</span> <span class="n">pointer_colors</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_image_registration_006.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_image_registration_006.png" />
+<p>Its also a good idea to look at the overlaid raw data to gauge the difficulty of the transformation prior to starting</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">fixed</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">moving</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Images overlayed&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_image_registration_007.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_image_registration_007.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Images overlayed&#39;)
+</pre></div>
+</div>
+</div>
+<div class="section" id="image-registration">
+<h2>Image Registration<a class="headerlink" href="#image-registration" title="Permalink to this headline">¶</a></h2>
+<p>Before starting the registration, we need to provide an optimizer configuration and a metric. OPTIMIZER contains
+settings used to configure the intensity similarity optimization.  METRIC configures the image similarity metric to
+be used during registration.</p>
+<p>The next set of statements populates a transform_cell with different types of registrations available:</p>
+<ul class="simple">
+<li><p>Translation – translation types of distortion</p></li>
+<li><p>Rigid – translation and rotation types of distortion</p></li>
+<li><p>Similarity – translation, rotation and scale types of distortion</p></li>
+<li><p>Affine – translation, rotation, scale and shear types of distortion</p></li>
+</ul>
+<p>In cases when you aren’t sure which transformation is best, and time is permitting. All 4 can be tried.</p>
+<p>Lets take a closer look inside the transformation process:</p>
+<p>Inside this loop we are registering an image, getting the transform, applying it to the ‘moving’ data set and
+inspecting the results.
+Since we are not sure which transform to pick, we are trying all of them one at a time – hence why this code is
+inside a ‘for’ loop
+We use the Pearson Correlation to look at how well (higher number is better) each of the transforms performed</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trans_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;similarity&#39;</span><span class="p">,</span> <span class="s1">&#39;affine&#39;</span><span class="p">,</span> <span class="s1">&#39;piecewise-affine&#39;</span><span class="p">,</span> <span class="s1">&#39;projective&#39;</span><span class="p">]</span>  <span class="c1"># transform list</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">tform_type</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">trans_names</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>  <span class="c1"># looping through transforms</span>
+
+    <span class="c1"># build the model</span>
+    <span class="n">tform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">estimate_transform</span><span class="p">(</span><span class="n">tform_type</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dst</span><span class="p">))</span>
+
+    <span class="c1"># use the model</span>
+    <span class="n">raw_corrected_Z</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">warp</span><span class="p">(</span><span class="n">moving</span><span class="p">,</span> <span class="n">inverse_map</span><span class="o">=</span><span class="n">tform</span><span class="o">.</span><span class="n">inverse</span><span class="p">,</span> <span class="n">output_shape</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">moving</span><span class="p">))</span>
+
+    <span class="c1"># one way to do correlations</span>
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">fixed</span><span class="p">,</span> <span class="p">[</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+                          <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">raw_corrected_Z</span><span class="p">,</span> <span class="p">[</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># visualize the transformation</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">tform_type</span> <span class="o">+</span> <span class="s1">&#39; - Pearson corr: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">raw_corrected_Z</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Different transforms applied to the images&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.03</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_image_registration_008.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_image_registration_008.png" />
+<p>delete the h5_file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">h5_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.070 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-image-registration-py">
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/5647ede7fc16040c07b151058dafec48/plot_image_registration.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_image_registration.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/c012006a1522b8f3cfad1fff02250e53/plot_image_registration.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_image_registration.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="plot_spectral_unmixing.html" class="btn btn-neutral float-right" title="Spectral Unmixing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="plot_fft_2d_filtering.html" class="btn btn-neutral float-left" title="FFT &amp; Filtering of Atomically Resolved Images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.analysis.be_loop_fitter &mdash; pycroscopy 0.60.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.analysis.be_sho_fitter" href="pycroscopy.analysis.be_sho_fitter.html" />
+    <link rel="prev" title="pycroscopy.analysis" href="../pycroscopy.analysis.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.analysis.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.analysis.html">pycroscopy.analysis</a> &raquo;</li>
+        
+      <li>pycroscopy.analysis.be_loop_fitter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.analysis.be_loop_fitter.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.analysis.be_loop_fitter">
+<span id="pycroscopy-analysis-be-loop-fitter"></span><h1>pycroscopy.analysis.be_loop_fitter<a class="headerlink" href="#module-pycroscopy.analysis.be_loop_fitter" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="#pycroscopy.analysis.be_loop_fitter.BELoopFitter" title="pycroscopy.analysis.be_loop_fitter.BELoopFitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">BELoopFitter</span></code></a> that fits Simple Harmonic Oscillator model data to a
+parametric model to describe hysteretic switching in ferroelectric materials</p>
+<p>Created on Thu Aug 25 11:48:53 2016</p>
+<p>&#64;author: Suhas Somnath, Chris R. Smith, Rama K. Vasudevan</p>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pycroscopy.analysis.be_loop_fitter.BELoopFitter" title="pycroscopy.analysis.be_loop_fitter.BELoopFitter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BELoopFitter</span></code></a>(h5_main[, variables, parallel])</p></td>
+<td><p>A class that fits Simple Harmonic Oscillator model data to a 9-parameter model to describe hysteretic switching in ferroelectric materials</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pycroscopy.analysis.be_loop_fitter.LoopOptimize" title="pycroscopy.analysis.be_loop_fitter.LoopOptimize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LoopOptimize</span></code></a>([data, guess, parallel])</p></td>
+<td><p>Subclass of Optimize with BE Loop specific changes</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pycroscopy.analysis.be_loop_fitter.BELoopFitter">
+<em class="property">class </em><code class="sig-name descname">BELoopFitter</code><span class="sig-paren">(</span><em class="sig-param">h5_main</em>, <em class="sig-param">variables=None</em>, <em class="sig-param">parallel=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/be_loop_fitter.html#BELoopFitter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.be_loop_fitter.BELoopFitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class that fits Simple Harmonic Oscillator model data to a 9-parameter model to describe hysteretic switching in
+ferroelectric materials</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_main</strong> (<em>h5py.Dataset instance</em>) – The dataset over which the analysis will be performed. This dataset should be linked to the spectroscopic
+indices and values, and position indices and values datasets.</p></li>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>(</em><em>string</em><em>)</em><em>, </em><em>Default</em><em> [</em><em>'Frequency'</em><em>]</em>) – Lists of attributes that h5_main should possess so that it may be analyzed by Model.</p></li>
+<li><p><strong>parallel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Should the parallel implementation of the fitting be used.  Default True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Quantitative mapping of switching behavior in piezoresponse force microscopy, Stephen Jesse, Ho Nyung Lee,
+and Sergei V. Kalinin, Review of Scientific Instruments 77, 073702 (2006); doi: <a class="reference external" href="http://dx.doi.org/10.1063/1.2214699">http://dx.doi.org/10.1063/1.2214699</a></p>
+<p>For now, we assume that the guess dataset has not been generated for this dataset but we will relax this
+requirement after testing the basic components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_main</strong> (<em>h5py.Dataset instance</em>) – The dataset over which the analysis will be performed. This dataset should be linked to the spectroscopic
+indices and values, and position indices and values datasets.</p></li>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>(</em><em>string</em><em>)</em><em>, </em><em>Default</em><em> [</em><em>'Frequency'</em><em>]</em>) – Lists of attributes that h5_main should possess so that it may be analyzed by Model.</p></li>
+<li><p><strong>parallel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Should the parallel implementation of the fitting be used.  Default True</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Whether or not to print statements that aid in debugging</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pycroscopy.analysis.be_loop_fitter.BELoopFitter.do_fit">
+<code class="sig-name descname">do_fit</code><span class="sig-paren">(</span><em class="sig-param">processors=None</em>, <em class="sig-param">max_mem=None</em>, <em class="sig-param">solver_type='least_squares'</em>, <em class="sig-param">solver_options=None</em>, <em class="sig-param">obj_func=None</em>, <em class="sig-param">get_loop_parameters=True</em>, <em class="sig-param">h5_guess=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/be_loop_fitter.html#BELoopFitter.do_fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.be_loop_fitter.BELoopFitter.do_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the loops</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>processors</strong> (<em>uint</em><em>, </em><em>optional</em>) – Number of processors to use for computing. Currently this is a serial operation
+Default None, output of psutil.cpu_count - 2 is used</p></li>
+<li><p><strong>max_mem</strong> (<em>uint</em><em>, </em><em>optional</em>) – Memory in MB to use for computation
+Default None, available memory from psutil.virtual_memory is used</p></li>
+<li><p><strong>solver_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Which solver from scipy.optimize should be used to fit the loops</p></li>
+<li><p><strong>solver_options</strong> (<em>dict of str</em>) – Parameters to be passed to the solver defined by <cite>solver_type</cite></p></li>
+<li><p><strong>obj_func</strong> (<em>dict of str</em>) – Dictionary defining the class and method for the loop residual function as well
+as the parameters to be passed</p></li>
+<li><p><strong>get_loop_parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Should the physical loop parameters be calculated after the guess is done
+Default True</p></li>
+<li><p><strong>h5_guess</strong> (<a class="reference external" href="http://docs.h5py.org/en/latest/high/dataset.html#h5py.Dataset" title="(in h5py v2.10)"><em>h5py.Dataset</em></a>) – Existing guess to use as input to fit.
+Default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>results</strong> – List of the results returned by the solver</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.analysis.be_loop_fitter.BELoopFitter.do_guess">
+<code class="sig-name descname">do_guess</code><span class="sig-paren">(</span><em class="sig-param">max_mem=None</em>, <em class="sig-param">processors=None</em>, <em class="sig-param">get_loop_parameters=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/be_loop_fitter.html#BELoopFitter.do_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.be_loop_fitter.BELoopFitter.do_guess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the loop projections and the initial guess for the loop parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>processors</strong> (<em>uint</em><em>, </em><em>optional</em>) – Number of processors to use for computing. Currently this is a serial operation and this attribute is
+ignored.
+Default None, output of psutil.cpu_count - 2 is used</p></li>
+<li><p><strong>max_mem</strong> (<em>uint</em><em>, </em><em>optional</em>) – Memory in MB to use for computation
+Default None, available memory from psutil.virtual_memory is used</p></li>
+<li><p><strong>get_loop_parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Should the physical loop parameters be calculated after the guess is done
+Default True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h5_guess</strong> – h5py dataset containing the guess parameters</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>h5py.Dataset object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.analysis.be_loop_fitter.BELoopFitter.extract_loop_parameters">
+<em class="property">static </em><code class="sig-name descname">extract_loop_parameters</code><span class="sig-paren">(</span><em class="sig-param">h5_loop_fit</em>, <em class="sig-param">nuc_threshold=0.03</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/be_loop_fitter.html#BELoopFitter.extract_loop_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.be_loop_fitter.BELoopFitter.extract_loop_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to extract a set of physical loop parameters from a dataset of fit parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_loop_fit</strong> (<a class="reference external" href="http://docs.h5py.org/en/latest/high/dataset.html#h5py.Dataset" title="(in h5py v2.10)"><em>h5py.Dataset</em></a>) – Dataset of loop fit parameters</p></li>
+<li><p><strong>nuc_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Nucleation threshold to use in calculation physical parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>h5_loop_parm</strong> – Dataset of physical parameters</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="http://docs.h5py.org/en/latest/high/dataset.html#h5py.Dataset" title="(in h5py v2.10)">h5py.Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.analysis.be_loop_fitter.BELoopFitter.shift_vdc">
+<em class="property">static </em><code class="sig-name descname">shift_vdc</code><span class="sig-paren">(</span><em class="sig-param">vdc_vec</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/be_loop_fitter.html#BELoopFitter.shift_vdc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.be_loop_fitter.BELoopFitter.shift_vdc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rolls the Vdc vector by a quarter cycle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vdc_vec</strong> (<em>1D numpy array</em>) – DC offset vector</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>shift_ind</strong> (<em>int</em>) – Number of indices by which the vector was rolled</p></li>
+<li><p><strong>vdc_shifted</strong> (<em>1D numpy array</em>) – Vdc vector rolled by a quarter cycle</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.analysis.be_loop_fitter.LoopOptimize">
+<em class="property">class </em><code class="sig-name descname">LoopOptimize</code><span class="sig-paren">(</span><em class="sig-param">data=array([]</em>, <em class="sig-param">dtype=float64)</em>, <em class="sig-param">guess=array([]</em>, <em class="sig-param">dtype=float64)</em>, <em class="sig-param">parallel=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/be_loop_fitter.html#LoopOptimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.be_loop_fitter.LoopOptimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subclass of Optimize with BE Loop specific changes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> – </p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="pycroscopy.analysis.be_loop_fitter.LoopOptimize.computeFit">
+<code class="sig-name descname">computeFit</code><span class="sig-paren">(</span><em class="sig-param">processors=1</em>, <em class="sig-param">solver_type='least_squares'</em>, <em class="sig-param">solver_options={}</em>, <em class="sig-param">obj_func={'class': 'Fit_Methods'</em>, <em class="sig-param">'obj_func': 'SHO'</em>, <em class="sig-param">'xvals': array([]</em>, <em class="sig-param">dtype=float64)}</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.analysis.be_loop_fitter.LoopOptimize.computeFit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>processors</strong> (<em>unsigned int</em>) – Number of logical cores to use for computing</p></li>
+<li><p><strong>solver_type</strong> (<em>string</em>) – Optimization solver to use (minimize,least_sq, etc…). For additional info see scipy.optimize</p></li>
+<li><p><strong>solver_options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>(</em><em>)</em>) – Default: dict()
+Dictionary of options passed to solver. For additional info see scipy.optimize</p></li>
+<li><p><strong>obj_func</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>(</em><em>)</em>) – Default is ‘SHO’.
+Can be one of [‘wavelet_peaks’, ‘relative_maximum’, ‘gaussian_processes’].
+For updated list, run GuessMethods.methods</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>results</strong> – unknown</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unknown</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.analysis.be_loop_fitter.LoopOptimize.computeGuess">
+<code class="sig-name descname">computeGuess</code><span class="sig-paren">(</span><em class="sig-param">processors=1</em>, <em class="sig-param">strategy='wavelet_peaks'</em>, <em class="sig-param">options={'peak_step': 20</em>, <em class="sig-param">'peak_widths': array([ 10</em>, <em class="sig-param">200])}</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.analysis.be_loop_fitter.LoopOptimize.computeGuess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the guess function using numerous cores</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>processors</strong> (<em>unsigned int</em>) – Number of logical cores to use for computing</p></li>
+<li><p><strong>strategy</strong> (<em>string</em>) – Default is ‘Wavelet_Peaks’.
+Can be one of [‘wavelet_peaks’, ‘relative_maximum’, ‘gaussian_processes’]. For updated list,
+run GuessMethods.methods</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Default: Options for wavelet_peaks{“peaks_widths”: np.array([10,200]), “peak_step”:20}.
+Dictionary of options passed to strategy. For more info see GuessMethods documentation.</p></li>
+<li><p><strong>kwargs</strong> – <dl class="simple">
+<dt>processors: int</dt><dd><p>number of processors to use. Default all processors on the system except for 1.</p>
+</dd>
+</dl>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>results</strong> – unknown</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>unknown</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycroscopy.analysis.be_sho_fitter.html" class="btn btn-neutral float-right" title="pycroscopy.analysis.be_sho_fitter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../pycroscopy.analysis.html" class="btn btn-neutral float-left" title="pycroscopy.analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
